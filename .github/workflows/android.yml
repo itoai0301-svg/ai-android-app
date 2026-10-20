@@ -29,7 +29,7 @@ jobs:
           tar -xJf /tmp/alien-source.tar.xz
           test -f project.godot
           # Godot 4.6 Linux headless Android export requires ETC2/ASTC import explicitly.
-          sed -i '/^\\[rendering\\]/a textures/vram_compression/import_etc2_astc=true' project.godot
+          sed -i '/rendering/a textures/vram_compression/import_etc2_astc=true' project.godot
           test -f main.tscn
           test -f scripts/main.gd
           test -f scripts/flight_hud.gd
