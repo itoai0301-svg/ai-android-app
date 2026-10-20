@@ -1,0 +1,5 @@
+.godot/
+out/
+*.apk
+*.aab
+.DS_Store
