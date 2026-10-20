@@ -25,7 +25,8 @@ jobs:
           set -euo pipefail
           cat payload/part01.b64 payload/part02.b64 payload/part03.b64 payload/part04.b64 payload/part05.b64 | base64 --decode > /tmp/alien-source.tar.xz
           echo "88dd9c3b6556fc40595b1e271f0337a738061bedce7206e8428103f3c85f7f88  /tmp/alien-source.tar.xz" | sha256sum --check
-          python3 -c 'import tarfile; tarfile.open("/tmp/alien-source.tar.xz", "r:xz").extractall(".")'
+          apt-get update -qq && apt-get install -y -qq xz-utils >/dev/null
+          tar -xJf /tmp/alien-source.tar.xz
           test -f project.godot
           test -f main.tscn
           test -f scripts/main.gd
