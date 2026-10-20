@@ -1,0 +1,37 @@
+{
+  "game": "Ant Meadow",
+  "version": "1.0.0",
+  "engine": "Godot 4.6.2",
+  "apk_bytes": 27781649,
+  "apk_sha256": "6a1a4f09fd0585a82fa284841b2f643a8045448fcee313fdd0c752a094fcaea6",
+  "apk_architecture": "arm64-v8a",
+  "minimum_android_api": 24,
+  "target_android_api": 35,
+  "gameplay_checks": 43,
+  "android_emulator": {
+    "status": "PASS",
+    "checks": [
+      "APK installs successfully",
+      "ANT_STATE:menu",
+      "ANT_STATE:playing",
+      "ANT_PICKUP:0",
+      "ANT_DELIVER:1",
+      "ANT_BURST",
+      "ANT_STATE:paused",
+      "ANT_RESUMED:10",
+      "ANT_STATE:playing",
+      "ANT_STATE:paused",
+      "ANT_RESUMED:10",
+      "ANT_STATE:playing",
+      "App survives background and resume",
+      "No Godot script errors or Android crashes"
+    ],
+    "screen": [
+      1280,
+      720
+    ],
+    "android_api": "24"
+  },
+  "visual_review": "Rendered Android gameplay inspected",
+  "physical_device_tested": false
+}

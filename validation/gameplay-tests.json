@@ -1,0 +1,68 @@
+{
+  "engine": "4.6.2-stable (official)",
+  "passed": 43,
+  "status": "PASS",
+  "tests": [
+    "title screen loads",
+    "six snacks exist in first expedition",
+    "garden and ant geometry constructed",
+    "real touch activates the play button",
+    "play button starts the game",
+    "touch pad steers the ant",
+    "releasing the touch pad stops manual movement",
+    "world tap builds a navigation path",
+    "ant follows a tapped destination",
+    "food 0 reachable from home",
+    "food 1 reachable from home",
+    "food 2 reachable from home",
+    "food 3 reachable from home",
+    "food 4 reachable from home",
+    "food 5 reachable from home",
+    "pond tap resolves to reachable shoreline",
+    "pause freezes game simulation",
+    "resume works",
+    "touching resume preserves the current expedition",
+    "burst starts and enters cooldown",
+    "burst cannot bypass cooldown",
+    "beetle hit removes one heart and grants protection",
+    "protection prevents repeated contact damage",
+    "walk to and collect snack 0",
+    "return and deliver snack 0",
+    "walk to and collect snack 1",
+    "return and deliver snack 1",
+    "walk to and collect snack 2",
+    "return and deliver snack 2",
+    "walk to and collect snack 3",
+    "return and deliver snack 3",
+    "walk to and collect snack 4",
+    "return and deliver snack 4",
+    "walk to and collect snack 5",
+    "return and deliver snack 5",
+    "complete expedition reaches victory with correct score",
+    "next day adds food and continues game",
+    "a hit returns carried food to its source",
+    "losing all hearts reaches retry screen",
+    "retry resets all game state",
+    "restart puts ant on safe ground",
+    "sound control works",
+    "sound can be restored"
+  ],
+  "touch_targets": {
+    "burst": [
+      0.91796875,
+      0.908333361148834
+    ],
+    "food0": [
+      0.365194618701935,
+      0.295102566480637
+    ],
+    "home": [
+      0.792578101158142,
+      0.908333361148834
+    ],
+    "resume": [
+      0.21875,
+      0.481944441795349
+    ]
+  }
+}

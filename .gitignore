@@ -3,3 +3,9 @@ out/
 *.apk
 *.aab
 .DS_Store
+*.keystore
+*.jks
+*.p12
+android-signing/
+__pycache__/
+*.pyc

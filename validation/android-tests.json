@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "checks": [
+    "APK installs successfully",
+    "ANT_STATE:menu",
+    "ANT_STATE:playing",
+    "ANT_PICKUP:0",
+    "ANT_DELIVER:1",
+    "ANT_BURST",
+    "ANT_STATE:paused",
+    "ANT_RESUMED:10",
+    "ANT_STATE:playing",
+    "ANT_STATE:paused",
+    "ANT_RESUMED:10",
+    "ANT_STATE:playing",
+    "App survives background and resume",
+    "No Godot script errors or Android crashes"
+  ],
+  "screen": [
+    1280,
+    720
+  ],
+  "android_api": "24"
+}
