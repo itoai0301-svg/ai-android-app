@@ -1,0 +1,82 @@
+name: Build Alien Rift Android APK
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  android-apk:
+    name: Compile playable Godot game
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    container:
+      image: barichello/godot-ci:4.6.2
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Restore and verify Alien Rift source
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat payload/part01.b64 payload/part02.b64 payload/part03.b64 payload/part04.b64 payload/part05.b64 | base64 --decode > /tmp/alien-source.tar.xz
+          echo "88dd9c3b6556fc40595b1e271f0337a738061bedce7206e8428103f3c85f7f88  /tmp/alien-source.tar.xz" | sha256sum --check
+          tar -xJf /tmp/alien-source.tar.xz
+          test -f project.godot
+          test -f main.tscn
+          test -f scripts/main.gd
+          test -f scripts/flight_hud.gd
+          test -f export_presets.cfg
+          mkdir -p out
+          godot --version
+
+      - name: Publish readable game source to GitHub
+        shell: bash
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add project.godot main.tscn export_presets.cfg .gitignore scripts shaders
+          if ! git diff --cached --quiet; then
+            git commit -m "Add playable Alien Rift Godot source [skip ci]"
+            git push origin HEAD:main
+          fi
+
+      - name: Import and check Godot scripts
+        shell: bash
+        run: |
+          set -eo pipefail
+          godot --headless --path . --editor --import --quit 2>&1 | tee /tmp/godot-import.log
+          if grep -Ei 'SCRIPT ERROR|Parse Error' /tmp/godot-import.log; then
+            echo "Godot source contains parsing errors"
+            exit 1
+          fi
+
+      - name: Export installable Android debug APK
+        shell: bash
+        env:
+          GODOT_ANDROID_KEYSTORE_DEBUG_PATH: /root/debug.keystore
+          GODOT_ANDROID_KEYSTORE_DEBUG_USER: androiddebugkey
+          GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD: android
+        run: |
+          set -eo pipefail
+          godot --headless --path . --export-debug Android out/AlienRift-debug.apk 2>&1 | tee /tmp/godot-export.log
+          test -s out/AlienRift-debug.apk
+          size=$(stat -c%s out/AlienRift-debug.apk)
+          echo "Built APK bytes: $size"
+          test "$size" -gt 5000000
+          unzip -t out/AlienRift-debug.apk | tail -3
+
+      - name: Upload APK download artifact
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: AlienRift-Android-APK
+          path: out/AlienRift-debug.apk
+          retention-days: 30
+          if-no-files-found: error
